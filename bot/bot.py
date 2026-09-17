@@ -1,12 +1,23 @@
+import os
 import asyncio
 import logging
+from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import CommandStart
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 
-BOT_TOKEN = "8845602104:AAF-xL54YP5OvUIIJShmrqDQ30Zq_TE1Woc"
-# Обновили адрес на текущий из localtunnel:
-WEB_APP_URL = "https://65736cca73a1a.lhr.life"
+# Загружаем переменные из .env файла
+load_dotenv()
+
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+WEB_APP_URL = os.getenv("WEB_APP_URL")
+
+# Проверка обязательных переменных окружения
+if not BOT_TOKEN:
+    raise ValueError("ОШИБКА: BOT_TOKEN не найден в файле .env")
+
+if not WEB_APP_URL:
+    raise ValueError("ОШИБКА: WEB_APP_URL не найден в файле .env")
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
